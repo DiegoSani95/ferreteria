@@ -1,0 +1,59 @@
+<div class="col-md-6 offset-md-3">
+    <h3 class="text-center">Edición de Productos</h3>
+    <form (ngSubmit)="onSubmit()" #productoForm="ngForm">
+        <div class="form-group">
+            <label>Nombre : </label>
+            <input type="text" class="form-control" id="nombre" [(ngModel)]="producto.nombre" name="nombre" required
+                minlength="4" maxlength="10" placeholder="Digite su nombre" #nombre="ngModel" />
+            <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                <div *ngIf="nombre.errors?.['required']">
+                    Digite el nombre por favor
+                </div>
+                <div *ngIf="nombre.errors?.['minlength']">
+                    El nombre tiene que contener como mínimo 4 caracteres
+                </div>
+                <div *ngIf="nombre.errors?.['maxlength']">
+                    El nombre tiene que tener como máximo 10 caracteres
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Código del producto:</label>
+            <input type="text" class="form-control" id="codigo" name="codigo" required minlength="3" maxlength="10"
+                pattern="^[A-Z0-9]+$" [(ngModel)]="producto.codigo" #codigo="ngModel" placeholder="Ej: PRD001" />
+            <div class="alert alert-danger" *ngIf="codigo.invalid && (codigo.dirty || codigo.touched)">
+                <div *ngIf="codigo.errors?.['required']">El código es obligatorio.</div>
+                <div *ngIf="codigo.errors?.['minlength']">Debe tener al menos 3 caracteres.</div>
+                <div *ngIf="codigo.errors?.['maxlength']">No puede tener más de 10 caracteres.</div>
+                <div *ngIf="codigo.errors?.['pattern']">Solo letras mayúsculas y números están permitidos (Ej: PRD123).
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label>Precio:</label>
+            <input type="number" class="form-control" id="precio" name="precio" required min="0.01" max="100000"
+                step="0.01" [(ngModel)]="producto.precio" #precio="ngModel" placeholder="Ingrese el precio" />
+            <div class="alert alert-danger" *ngIf="precio.invalid && (precio.dirty || precio.touched)">
+                <div *ngIf="precio.errors?.['required']">El precio es obligatorio.</div>
+                <div *ngIf="precio.errors?.['min']">El precio debe ser mayor a 0.</div>
+                <div *ngIf="precio.errors?.['max']">El precio no puede superar 100,000.</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label>Stock:</label>
+            <input type="number" class="form-control" id="stock" name="stock" required min="0" step="1"
+                [(ngModel)]="producto.stock" #stock="ngModel" placeholder="Ingrese la cantidad en stock" />
+            <div class="alert alert-danger" *ngIf="stock.invalid && (stock.dirty || stock.touched)">
+                <div *ngIf="stock.errors?.['required']">El stock es obligatorio.</div>
+                <div *ngIf="stock.errors?.['min']">El stock no puede ser negativo.</div>
+            </div>
+        </div>
+
+        <button class="btn btn-success" type="submit" [disabled]="!productoForm.form.valid">Guardar</button>
+    </form>
+</div>

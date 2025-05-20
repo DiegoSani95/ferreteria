@@ -1,0 +1,33 @@
+<!-- Formulario de búsqueda -->
+<input [(ngModel)]="codigoProducto" placeholder="Código de producto">
+<button (click)="buscarProducto()">Buscar</button>
+
+<!-- Mostrar tabla solo si se encontró un producto -->
+<div *ngIf="producto">
+  <h3>Producto encontrado:</h3>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Codigo</th>
+        <th>Precio</th>
+        <th>Stock</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.codigo }}</td>
+        <td>{{ producto.precio }}</td>
+        <td>{{ producto.stock }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulario para registrar movimiento -->
+  <div>
+    <label>Cantidad:</label>
+    <input type="number" [(ngModel)]="cantidad" min="1">
+    <button (click)="registrar()">Registrar Movimiento</button>
+  </div>
+</div>

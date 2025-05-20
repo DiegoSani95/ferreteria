@@ -1,0 +1,40 @@
+<div class="busqueda-container">
+  <input
+    type="text"
+    [(ngModel)]="filtroCodigo"
+    placeholder="Buscar por código"
+  />
+  <button (click)="buscarPorCodigo()">Buscar</button>
+</div>
+
+<div *ngIf="cargando">Cargando movimientos...</div>
+
+<table
+  *ngIf="!cargando && movimientosFiltrados.length > 0"
+  border="1"
+  cellpadding="8"
+  cellspacing="0"
+>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Código Producto</th>
+      <th>Cantidad</th>
+      <th>Fecha</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movimiento of movimientosFiltrados">
+      <td>{{ movimiento.id }}</td>
+      <td>{{ movimiento.codigoProducto }}</td>
+      <td>{{ movimiento.cantidad }}</td>
+      <td>{{ movimiento.fecha | date: 'short' }}</td>
+      <td>{{ movimiento.total | currency: 'USD' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="!cargando && movimientosFiltrados.length === 0">
+  No hay movimientos encontrados para ese código.
+</div>
